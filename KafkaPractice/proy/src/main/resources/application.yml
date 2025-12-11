@@ -1,0 +1,22 @@
+spring:
+  kafka:
+    bootstrap-servers: localhost:9092
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+  datasource:
+    url: jdbc:mysql://localhost:3306/microspractice
+    username: root
+    password: 211772809
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  application:
+    name: "kafka-practice"
+
+server:
+  port: 8081
+
+exampleValue: "scene"
+
+
