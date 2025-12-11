@@ -17,4 +17,9 @@ public class Controllerx {
     public ResponseEntity<String> startExample(){
         return ResponseEntity.ok(testService.triggerSavingDBLikeSycronization("TRUE"));
     }
+
+    @GetMapping("/pojo")
+    public ResponseEntity<String> startPojo(){
+        return ResponseEntity.ok(testService.triggerPojoSend());
+    }
 }

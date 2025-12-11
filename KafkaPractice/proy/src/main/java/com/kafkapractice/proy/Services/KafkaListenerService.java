@@ -15,7 +15,7 @@ public class KafkaListenerService {
     @Autowired
     private MicroOneService microOneService;
 
-    @KafkaListener(id="listen",topics="micro1")
+    @KafkaListener(id="listen",topics="micro1",groupId = "1")
     public void listen(String in){
         /**Un pojo de prueba */
         MicroOneEntity obj = MicroOneEntity.builder().age(55)
@@ -28,6 +28,11 @@ public class KafkaListenerService {
         System.out.println("SI EMPIEZA LA TRANSACCIÓN");
 
         /*Con helper o libreria busca la forma más optima de guardar el resultado de la transacción */
+    }
+
+    @KafkaListener(id="listen2",topics = "micro2",groupId = "2",containerFactory="kafkaListenerForDeserialize")
+    public void deserializationTest(MicroOneEntity obj){
+        System.out.println("DEBE RECIBIR EL JSON DESDE EL EVENT Y PARSEARLO A POJO CORRECTAMENTE: ".concat(obj.toString()));
     }
 
     
