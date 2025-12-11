@@ -29,3 +29,24 @@ de los hilos del micro o del contenedor
 
 Ahora solo haré una prueba extra conectando los dos micros por medio de dos contenedores diferentes. configurando los docker composer correspondientes
 o docker files y con eso tendremos dos plantillas de micros sincronizados.
+
+
+AVANCES 11 -12 - 2025
+
+Debido a cierto rezago técnico derivado de una experiencia de secretario, me he puesto a indagar tecnologías en base
+a mi última experiencia laboral (sin replicar nada exacto)
+
+<img width="1910" height="1068" alt="image" src="https://github.com/user-attachments/assets/c76e23e7-2ecb-40bf-b746-e6e14f17b74c" />
+
+Con esto hemos configurado apache kafka dentro de un contenedor, el cual hemos conectado con dos contenedores más por medio de una red externa
+(bridge no puesto que, no están los proyectos en la misma carpeta).
+
+Costó un guebote la configuración, ya me estaba desesperando porque ni chat gpt te da la respuesta. Si presentan problemas como yo, guiense
+de este articulo de stack overflow que me salvó la vida https://stackoverflow.com/questions/71299048/kafka-consumer-is-not-receiving-messages-on-docker
+
+Lo que prosigue es repasar los helpers de la libreria de kafka para poder implementar POJOS de acuerdo a los mensajes que se manden
+por medio de Kafka, deserializarlos y ver que tan adaptales son esos escenarios, con eso tenemos la herramienta dominada.
+
+Al final, wrapearemos esto en un cluster pequeño de kubernetes, implementando secrets y services para replicar (no implementaremos istio porque que gueba).
+
+Se trata de aprender lo básico, no de armar mi ecosistema al 100
