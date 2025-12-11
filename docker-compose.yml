@@ -1,0 +1,52 @@
+services:
+  kafka:
+    image: apache/kafka:4.0.1
+    container_name: moisexy
+    ports:
+      - "9092:9092"
+    environment:
+
+      KAFKA_NODE_ID: 1
+      KAFKA_PROCESS_ROLES: "broker,controller"
+
+      # --- LISTENERS ---
+      KAFKA_LISTENERS: >
+        CONTROLLER://0.0.0.0:9093,
+        INTERNAL://0.0.0.0:29092,
+        EXTERNAL://0.0.0.0:9092
+
+      # --- ADVERTISED ---
+      KAFKA_ADVERTISED_LISTENERS: >
+        CONTROLLER://moisexy:9093,
+        INTERNAL://moisexy:29092,
+        EXTERNAL://localhost:9092
+
+      # MAPEO
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: >
+        CONTROLLER:PLAINTEXT,
+        INTERNAL:PLAINTEXT,
+        EXTERNAL:PLAINTEXT
+
+      # --- KRAFT CONFIG ---
+      KAFKA_CONTROLLER_LISTENER_NAMES: CONTROLLER
+      KAFKA_CONTROLLER_QUORUM_VOTERS: "1@moisexy:9093"
+
+      # inter-broker debe usar INTERNAL
+      KAFKA_INTER_BROKER_LISTENER_NAME: INTERNAL
+      KAFKA_CFG_AUTO_CREATE_TOPICS_ENABLE: "true"
+
+      # Source - https://stackoverflow.com/a
+# Posted by OneCricketeer, modified by community. See post 'Timeline' for change history
+# Retrieved 2025-12-11, License - CC BY-SA 4.0
+
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+
+
+    networks:
+      - kafka-net
+
+networks:
+  kafka-net:
+    external: true

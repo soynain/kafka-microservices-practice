@@ -1,0 +1,14 @@
+services:
+  micro2:
+    build: 
+      context: .
+      dockerfile: dockerfile
+    container_name: micro2
+    ports:
+      - "8083:8083"
+    networks:
+      - kafka-net
+
+networks:
+  kafka-net:
+    external: true
