@@ -22,4 +22,9 @@ public class Controllerx {
     public ResponseEntity<String> startPojo(){
         return ResponseEntity.ok(testService.triggerPojoSend());
     }
+
+    @GetMapping("/testSend")
+    public ResponseEntity<String> testSendListener(){
+        return ResponseEntity.ok(testService.sendToListenerTest());
+    }
 }

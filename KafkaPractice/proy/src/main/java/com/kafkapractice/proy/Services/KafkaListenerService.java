@@ -3,6 +3,8 @@ package com.kafkapractice.proy.Services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.annotation.KafkaListener;
+import org.springframework.kafka.annotation.PartitionOffset;
+import org.springframework.kafka.annotation.TopicPartition;
 import org.springframework.stereotype.Service;
 
 import com.kafkapractice.proy.Entities.MicroOneEntity;
@@ -15,7 +17,7 @@ public class KafkaListenerService {
     @Autowired
     private MicroOneService microOneService;
 
-    @KafkaListener(id="listen",topics="micro1",groupId = "1")
+    @KafkaListener(id="listen",groupId = "0",topicPartitions = { @TopicPartition(topic = "micro1", partitions = { "3"})})
     public void listen(String in){
         /**Un pojo de prueba */
         MicroOneEntity obj = MicroOneEntity.builder().age(55)
@@ -33,6 +35,20 @@ public class KafkaListenerService {
     @KafkaListener(id="listen2",topics = "micro2",groupId = "2",containerFactory="kafkaListenerForDeserialize")
     public void deserializationTest(MicroOneEntity obj){
         System.out.println("DEBE RECIBIR EL JSON DESDE EL EVENT Y PARSEARLO A POJO CORRECTAMENTE: ".concat(obj.toString()));
+    }
+
+
+    /**A partir de un mismo tópico, podemos definir las particiones pertinentes */
+    @KafkaListener(id="listen3",topicPartitions = { @TopicPartition(topic = "micro1", partitions = { "2"})},groupId = "2")
+    public void listen3(String in){
+        /**Un pojo de prueba */
+      System.out.println(in+" mensaje listen 2");
+    }
+
+    @KafkaListener(id="listen4",topicPartitions = { @TopicPartition(topic = "micro1", partitions = { "1","2"})},groupId = "2")
+    public void listen4(String in){
+        /**Un pojo de prueba */
+      System.out.println(in+" mensaje listen 3");
     }
 
     
