@@ -50,3 +50,20 @@ por medio de Kafka, deserializarlos y ver que tan adaptales son esos escenarios,
 Al final, wrapearemos esto en un cluster pequeño de kubernetes, implementando secrets y services para replicar (no implementaremos istio porque que gueba).
 
 Se trata de aprender lo básico, no de armar mi ecosistema al 100
+
+Avances 12-12-2025
+
+Hemos ya configurado un ejemplo básico de serializer y deserializer. En base a esto nos toca simplemente jugar con particiones
+y tópicos. Por lo que entiendo, puedes tener N tópicos, los tópicos pueden tener M particiones. Si dos consumers se suscriben a la misma partición,
+recibirán mensajes en orden, de lo contrario no se puede asegurar el orden de los mensajes.
+
+Si dos consumers pertenecen al mismo grupo y partición, recibirán los mensajes de sus particiones correspondientes. Si pertenecen
+a diferentes grupos, pueden recibir los mensajes de su partición más los de otras particiones, ya que Kafka envía una copia de los mensajes
+a todos los grupos y particiones.
+
+entonces, haciendo un esquema para recordarlo después, asi funciona el tema nomás
+
+<img width="1056" height="865" alt="image" src="https://github.com/user-attachments/assets/d300d1de-a76f-4176-bd19-5de416ab2b0e" />
+
+Grupos agrupan consumidores que consumen de una misma partición. 
+
