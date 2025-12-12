@@ -67,3 +67,23 @@ entonces, haciendo un esquema para recordarlo después, asi funciona el tema nom
 
 Grupos agrupan consumidores que consumen de una misma partición. 
 
+Ya entendí que pex y aquí listo los escenarios, ya será lo último de práctica para lo escencial, para avanzar a kubernetes.
+
+
+Mismo grupo en dos consumidores = solo uno recibe el mensaje
+<img width="1074" height="725" alt="image" src="https://github.com/user-attachments/assets/f7c941af-23bb-4e97-9f6b-4158faadeffd" />
+
+dos grupos distintos en un consumidor - ambos reciben el mensaje
+<img width="1261" height="764" alt="image" src="https://github.com/user-attachments/assets/8f3374ca-c4d5-458e-b959-00fd92f7282d" />
+
+
+Si no deseas que un evento sea replicado en otros grupos, debes usar otro tópico. O al menos que
+asignes un tópico por particiones, repartes dinamicamente en dos listeners tales particiones
+con un mismo groupId
+<img width="1411" height="753" alt="image" src="https://github.com/user-attachments/assets/b32f2896-cbbd-44b7-ac93-aa1f72793aba" />
+
+si mandas al 2, los dos listeners se van a activar, si mandas a particion 1, solo uno se activara. Esto es menos frecuente,
+ya que la finalidad de kafka es balancear
+
+
+
