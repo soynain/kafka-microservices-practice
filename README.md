@@ -86,4 +86,62 @@ si mandas al 2, los dos listeners se van a activar, si mandas a particion 1, sol
 ya que la finalidad de kafka es balancear
 
 
+AVANCE BÁSIQUIN Y FINAL de topicos kafka:
+Ahora desde kubernetes ya hemos configurado dos deployments con una replica cada uno por deployment.yml
+
+Aquí lo que se hizo fue crear un docker como server de kafka y no incluir el mismo en los k8s del cluster de kube.
+Esto para separar responsabilidades puesto que la configuración de kafka debe ser aparte.
+
+Se aprendió lo básico, services y deployment. Con esto ya termina la finalidad de este repositorio.
+
+El próximo paso es: configurar dos micros para comunicación REST, y configurar más alla los kubes para exponerlos
+y que estos puedan comunicarse por host del aplicativo.
+
+La finalidad es integrar más cosas e irnos adentrando a lo básico de cloud. No replicaremos arquitecturas precisas
+porque no es la finalidad crear cascarones. Es agarrar conceptos para sobrevivir a un próximo trabajo.
+
+
+Algunos comandos que anotaré aqui para recordar, asi como evidencia de la práctica:
+
+<img width="1737" height="1000" alt="image" src="https://github.com/user-attachments/assets/55a0dc59-687b-4cfb-9b07-2c6883931d51" />
+
+Comandos para alterar números de partición y enviar mensajes por tópico
+/opt/kafka $ bin/kafka-topics.sh --topic micro1 --describe --bootstrap-server localhost:9092
+Topic: micro1   TopicId: SX5slt3VTJqgGXPIo0P1gg PartitionCount: 1       ReplicationFactor: 1    Configs: 
+        Topic: micro1   Partition: 0    Leader: 1       Replicas: 1     Isr: 1  Elr:    LastKnownElr: 
+/opt/kafka $ bin/kafka-topics.sh --topic micro1 --alter --partitions=6  --bootstrap-server localhost:9092
+/opt/kafka $ bin/kafka-console-producer.sh --topic micro1 --bootstrap-server localhost:9092 --property parse-key=true --property key.separator=:
+>3:aa
+>1:a
+
+
+Para aplicar services y deploys:
+
+kubectl apply -f <Directorio y nombre del yaml>
+
+Para borrar services y deploys
+ kubectl delete service micro2-nodeport
+ kubectl delete deployment micro1
+
+Checar logas de arranque de los pods (replicas de una aplicación)
+kubectl logs -f -l app=micro2
+
+Comandos de docker
+IMPORTANTE: No debes generar tu docker image con composer para el caso de las imagenes que uses en kubernetes, o al menos no configura
+los docker networks para que no tengas problemas despues si configuras tu kafka dentro del mismo
+ docker build -t proy-micro1:1.0 .     
+
+Para la comunicación entre docker y docker si yusalo
+docker compose up --build -d  
+
+Información check del pod
+kubectl describe pod micro1-5764cfd5dc-lmhhc  
+
+
+Si ya hay arquitecturas cedimentadas en kafka, estos fundamentos te servirán. Lo demás corre con IA y la documentación que veas enspring boot.
+
+No profundizes hasta que sea necesario. Nota mental
+
+
+
 
