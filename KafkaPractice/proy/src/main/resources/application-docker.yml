@@ -1,6 +1,6 @@
 spring:
   kafka:
-    bootstrap-servers: moisexy:29092
+    bootstrap-servers: host.docker.internal:9092
   jpa:
     hibernate:
       ddl-auto: update
