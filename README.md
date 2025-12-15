@@ -142,6 +142,11 @@ Si ya hay arquitecturas cedimentadas en kafka, estos fundamentos te servirán. L
 
 No profundizes hasta que sea necesario. Nota mental
 
+Recuerda diferenciar los diferentes tipos de configuración, si es contenedor a contenedor
+configura con network docker y pon el nombre del hostname interno del contenedor en el yaml,
+de lo contrario configuralo con localhost y host.docker.internal para que puedas conectarlo con tus pods de kubernetes.
+
+<img width="1907" height="1076" alt="image" src="https://github.com/user-attachments/assets/bcbd5b15-8ba8-45c9-8f54-c9ddc4b339e9" />
 
 
 
