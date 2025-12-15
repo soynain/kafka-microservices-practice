@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: micro1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: micro1
+  template:
+    metadata:
+      labels:
+        app: micro1
+    spec:
+      containers:
+      - name: micro1
+        image: proy-micro1:1.0
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8081

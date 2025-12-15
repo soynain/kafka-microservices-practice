@@ -17,9 +17,9 @@ services:
 
       # --- ADVERTISED ---
       KAFKA_ADVERTISED_LISTENERS: >
-        CONTROLLER://moisexy:9093,
-        INTERNAL://moisexy:29092,
-        EXTERNAL://localhost:9092
+        CONTROLLER://localhost:9093,
+        INTERNAL://localhost:29092,
+        EXTERNAL://host.docker.internal:9092
 
       # MAPEO
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: >
@@ -29,7 +29,7 @@ services:
 
       # --- KRAFT CONFIG ---
       KAFKA_CONTROLLER_LISTENER_NAMES: CONTROLLER
-      KAFKA_CONTROLLER_QUORUM_VOTERS: "1@moisexy:9093"
+      KAFKA_CONTROLLER_QUORUM_VOTERS: "1@localhost:9093"
 
       # inter-broker debe usar INTERNAL
       KAFKA_INTER_BROKER_LISTENER_NAME: INTERNAL
